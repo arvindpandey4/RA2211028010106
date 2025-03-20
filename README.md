@@ -25,6 +25,9 @@ A dual-microservice architecture for number processing and social media analytic
 - `src/services` - Core calculation logic
 - `src/utils/slidingWindow.js` - Average calculation algorithm
 
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/6d764e11-8829-4ade-8f76-1b96901cb13e" />
+
+
 ### 2. Social Media Analytics Microservice
 
 **Tech Stack**: Node.js, Express.js, Axios
