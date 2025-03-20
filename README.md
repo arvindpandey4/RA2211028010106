@@ -74,4 +74,4 @@ WINDOW_SIZE=10
 
 ## Authentication
 
-The Social Media Analytics service uses Bearer token authentication. The token is pre-configured in `dataFetcher.js`. 
+The Social Media Analytics service uses Bearer token authentication. The token is pre-configured in `dataFetcher.js`.
