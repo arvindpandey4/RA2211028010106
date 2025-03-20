@@ -1,107 +1,77 @@
 # Microservices Project
 
-This repository contains two microservices:
-1. **Average Calculator Microservice** - A service that calculates averages of numbers from different sources
-2. **Social Media Analytics** - A service that provides analytics for social media data
+A dual-microservice architecture for number processing and social media analytics.
 
-## Prerequisites
-
-- Node.js (v14 or higher)
-- npm (v6 or higher)
-
-## Project Structure
-
-```
-.
-├── avg_calc_microservice/       # Average Calculator Microservice
-│   ├── src/                     # Source code
-│   ├── tests/                   # Unit tests
-│   ├── .env                     # Environment variables
-│   ├── package.json             # Dependencies
-│   └── server.js                # Entry point
-│
-└── social_media_analytics/      # Social Media Analytics Microservice
-    ├── routes/                  # API routes
-    ├── services/                # Business logic and external API calls
-    ├── utils/                   # Utility functions
-    ├── config.js                # Configuration
-    ├── package.json             # Dependencies
-    └── index.js                 # Entry point
-```
-
-## Setup and Running
+## Project Components
 
 ### 1. Average Calculator Microservice
 
-#### Setup
-```bash
-# Navigate to the microservice directory
-cd avg_calc_microservice
+**Tech Stack**: Node.js, Express.js, Jest
+**Port**: 9876
 
-# Install dependencies
-npm install
-```
+**Core Functions**:
+- Calculates real-time averages of numerical data
+- Implements sliding window algorithm for calculations
+- Provides RESTful API for data retrieval
 
-#### Environment Variables
-Create or modify the `.env` file with the following variables:
-```
-PORT=9876
-API_BASE_URL=your_api_base_url
-API_KEY=your_api_key
-WINDOW_SIZE=10
-CACHE_TTL=60000
-```
+**Endpoints**:
+- `GET /numbers` - Retrieve all numbers
+- `GET /numbers/average` - Get current average
+- `POST /numbers` - Add new number
 
-#### Running the Service
-```bash
-# Start the service
-npm start
-
-# For development with auto-reload
-npm run dev
-
-# Run tests
-npm test
-```
-
-#### API Endpoints
-- `GET /api/numbers` - Get all numbers
-- `GET /api/numbers/average` - Get the average of all numbers
-- `POST /api/numbers` - Add a new number
+**Key Files**:
+- `server.js` - Entry point
+- `src/app.js` - Express configuration
+- `src/services` - Core calculation logic
+- `src/utils/slidingWindow.js` - Average calculation algorithm
 
 ### 2. Social Media Analytics Microservice
 
-#### Setup
-```bash
-# Navigate to the microservice directory
-cd social_media_analytics
+**Tech Stack**: Node.js, Express.js, Axios
+**Port**: 3000
 
-# Install dependencies
+**Core Functions**:
+- Retrieves and analyzes social media data from external API
+- Implements Bearer token authentication
+- Features 60-second TTL cache for performance optimization
+
+**Endpoints**:
+- `GET /users` - All users
+- `GET /users/:userId/posts` - User-specific posts
+- `GET /posts?type=latest` - Latest posts
+- `GET /posts?type=popular` - Popular posts
+- `GET /posts/:postId/comments` - Post comments
+
+**Key Files**:
+- `index.js` - Server configuration
+- `services/dataFetcher.js` - External API integration
+- `services/cache.js` - Caching mechanism
+- `routes/` - API routes
+
+## Quick Start
+
+```bash
+# Average Calculator
+cd avg_calc_microservice
 npm install
-```
-
-#### Running the Service
-```bash
-# Start the service
 npm start
 
-# For development with auto-reload
-npm run dev
+# Social Media Analytics
+cd social_media_analytics
+npm install
+npm start
 ```
 
-#### API Endpoints
-- `GET /users` - Get all users
-- `GET /users/:userId/posts` - Get posts for a specific user
-- `GET /posts?type=latest` - Get latest posts
-- `GET /posts?type=popular` - Get popular posts
-- `GET /posts/:postId/comments` - Get comments for a specific post
+## Environment Setup
+
+**Average Calculator**:
+```
+PORT=9876
+API_BASE_URL=your_api_url
+API_KEY=your_key
+WINDOW_SIZE=10
+```
 
 ## Authentication
 
-The Social Media Analytics microservice requires Bearer token authentication for API calls. The token is pre-configured in the `dataFetcher.js` file.
-
-## Caching Strategy
-
-Both microservices implement caching strategies:
-- Average Calculator: Sliding window algorithm for calculating real-time averages
-- Social Media Analytics: Time-based caching with a TTL (Time-To-Live) of 60 seconds
+The Social Media Analytics service uses Bearer token authentication. The token is pre-configured in `dataFetcher.js`.
